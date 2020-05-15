@@ -22,11 +22,9 @@ import octoprint.printer
 class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                          octoprint.plugin.AssetPlugin,
                          octoprint.plugin.TemplatePlugin,
-                         octoprint.plugin.StartupPlugin,
-                         octoprint.plugin.EventHandlerPlugin):
+                         octoprint.plugin.StartupPlugin):
 
 	##~~ SettingsPlugin mixin
-
 	def get_settings_defaults(self):
 		return dict(
                         do_level_gcode = 'G28 W ; home all without mesh bed level\nG80 ; mesh bed leveling\nG81 ; check mesh leveling results',
@@ -34,10 +32,7 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 		)
 
 	##~~ AssetPlugin mixin
-
 	def get_assets(self):
-		# Define your plugin's asset files to automatically include in the
-		# core UI here.
 		return dict(
 			js=["js/PrusaMeshMap.js"],
 			css=["css/PrusaMeshMap.css"],
@@ -45,26 +40,8 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                         img_heightmap=["img/heightmap.png"]
 		)
                 
-	##~~ TemplatePlugin mixin
-
-        #def get_template_configs(self):
-        #        return [
-        #                dict(type="navbar", custom_bindings=False),
-        #                dict(type="settings", custom_bindings=False)
-        #        ]
-        
-        ##~~ EventHandlerPlugin mixin
-
-        def on_event(self, event, payload):
-            if event is "Connected":
-                self._printer.commands("M1234")
-
 	##~~ Softwareupdate hook
-
 	def get_update_information(self):
-		# Define the configuration for your plugin to use with the Software Update
-		# Plugin here. See https://github.com/foosel/OctoPrint/wiki/Plugin:-Software-Update
-		# for details.
 		return dict(
 			PrusaMeshMap=dict(
 				displayName="Prusameshmap Plugin",
@@ -82,7 +59,6 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 		)
 
         ##~~ GCode Received hook
-
         def mesh_level_check(self, comm, line, *args, **kwargs):
                 if re.match(r"^(  -?\d+.\d+)+$", line):
                     self.mesh_level_responses.append(line)
@@ -93,7 +69,6 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                     return line
 
         ##~~ Mesh Bed Level Heightmap Generation
-
         mesh_level_responses = []
 
         def mesh_level_generate(self):
@@ -190,7 +165,6 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 
                 ############
                 # Draw the heightmap
-                #fig = plt.figure(dpi=96, figsize=(12, 9))
                 fig = plt.figure(dpi=96, figsize=(10,8.3))
                 ax = plt.gca()
 
