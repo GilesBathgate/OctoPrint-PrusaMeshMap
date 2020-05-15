@@ -204,7 +204,7 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                 plt.text(0.5, 0.05, "Total Bed Variance: " + str(bed_variance) + " (mm)", fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes)
 
                 # Save our graph as an image in the current directory.
-                fig.savefig(self.get_asset_folder() + '/img/heightmap.png', bbox_inches="tight")
+                fig.savefig(self.get_asset_folder() + '/img/heightmap.png', bbox_inches="tight", transparent=True)
                 self._logger.info("Heightmap updated")
 
                 del self.mesh_level_responses[:]
