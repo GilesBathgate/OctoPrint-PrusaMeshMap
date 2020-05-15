@@ -209,7 +209,7 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                 #plt.colorbar(label="Bed Variance: " + str(round(mesh_z.max() - mesh_z.min(), 3)) + "mm")
                 plt.colorbar(contour, label="Measured Level (mm)")
                 
-                plt.text(0.5, 0.43, "Total Bed Variance: " + str(bed_variance) + " (mm)", fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=dict(facecolor='#eeefff', alpha=0.5))
+                plt.text(0.5, 0.05, "Total Bed Variance: " + str(bed_variance) + " (mm)", fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes)
 
                 # Save our graph as an image in the current directory.
                 fig.savefig(self.get_asset_folder() + '/img/heightmap.png', bbox_inches="tight")
