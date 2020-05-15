@@ -17,5 +17,8 @@
             <select data-bind="options: matplotlib_heightmap_theme_options, value: settingsViewModel.settings.plugins.PrusaMeshMap.matplotlib_heightmap_theme"></select>
             <span class="help-inline">See <a href="https://matplotlib.org/examples/color/colormaps_reference.html" target="matplotlib-colors">colormap reference</a> for previews.</span>
         </div>
+        <div class="controls">
+            <input type="checkbox" data-bind="checked: settingsViewModel.settings.plugins.PrusaMeshMap.dark_theme">Use dark theme</input>
+        </div>
     </div>
 </form>

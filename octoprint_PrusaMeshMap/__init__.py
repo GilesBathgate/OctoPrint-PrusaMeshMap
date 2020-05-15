@@ -20,7 +20,8 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 	def get_settings_defaults(self):
 		return dict(
                         do_level_gcode = 'G28 W ; home all without mesh bed level\nG80 ; mesh bed leveling\nG81 ; check mesh leveling results',
-                        matplotlib_heightmap_theme = 'viridis'
+                        matplotlib_heightmap_theme = 'inferno',
+                        dark_theme = True
 		)
 
 	##~~ AssetPlugin mixin
@@ -162,6 +163,12 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 
                 ############
                 # Draw the heightmap
+                dark_theme = self._settings.get_boolean(["dark_theme"])
+                if dark_theme:
+                    plt.style.use('dark_background')
+                else:
+                    plt.style.use('classic')
+
                 fig = plt.figure(dpi=96, figsize=(10,8.3))
                 ax = plt.gca()
 
@@ -180,7 +187,11 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                 contour = plt.contourf(mesh_x, mesh_y[::-1], mesh_z, alpha=.75, antialiased=True, cmap=plt.cm.get_cmap(self._settings.get(["matplotlib_heightmap_theme"])))
 
                 # Insert the background image (currently an image of the MK3 PEI-coated steel sheet)
-                img = mpimg.imread(self.get_asset_folder() + '/img/mk52_steel_sheet.png')
+                if dark_theme:
+                   img = mpimg.imread(self.get_asset_folder() + '/img/mk52_steel_sheet.png')
+                else:
+                   img = mpimg.imread(self.get_asset_folder() + '/img/mk52_steel_sheet_dark.png')
+
                 plt.imshow(img, extent=[sheet_left_x, sheet_right_x, sheet_front_y, sheet_back_y], interpolation="lanczos", cmap=plt.cm.get_cmap(self._settings.get(["matplotlib_heightmap_theme"])))
 
                 # Set axis ranges (although we don't currently show these...)
