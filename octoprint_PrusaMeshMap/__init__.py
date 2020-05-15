@@ -188,9 +188,9 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 
                 # Insert the background image (currently an image of the MK3 PEI-coated steel sheet)
                 if dark_theme:
-                   img = mpimg.imread(self.get_asset_folder() + '/img/mk52_steel_sheet.png')
-                else:
                    img = mpimg.imread(self.get_asset_folder() + '/img/mk52_steel_sheet_dark.png')
+                else:
+                   img = mpimg.imread(self.get_asset_folder() + '/img/mk52_steel_sheet.png')
 
                 plt.imshow(img, extent=[sheet_left_x, sheet_right_x, sheet_front_y, sheet_back_y], interpolation="lanczos", cmap=plt.cm.get_cmap(self._settings.get(["matplotlib_heightmap_theme"])))
 
