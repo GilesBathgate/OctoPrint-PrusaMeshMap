@@ -21,13 +21,13 @@ plugin_version = "0.3.0"
 plugin_description = """This plugin performs a mesh bed leveling operation then returns the results as an easy to read heightmap."""
 
 # The plugin's author. Can be overwritten within OctoPrint's internal data via __plugin_author__ in the plugin module
-plugin_author = "Jake Skipper"
+plugin_author = "Giles Bathgate"
 
 # The plugin's author's mail address.
-plugin_author_email = "ff8jake@gmail.com"
+plugin_author_email = "giles.bathgate@gmail.com"
 
 # The plugin's homepage URL. Can be overwritten within OctoPrint's internal data via __plugin_url__ in the plugin module
-plugin_url = "https://github.com/ff8jake/OctoPrint-PrusaMeshMap"
+plugin_url = "https://github.com/GilesBathgate/OctoPrint-PrusaMeshMap"
 
 # The plugin's license. Can be overwritten within OctoPrint's internal data via __plugin_license__ in the plugin module
 plugin_license = "MIT"

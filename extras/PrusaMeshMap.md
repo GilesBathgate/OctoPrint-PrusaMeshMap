@@ -10,9 +10,9 @@ license: MIT
 # TODO
 date: today's date in format YYYY-MM-DD, e.g. 2015-04-21
 
-homepage: https://github.com/ff8jake/OctoPrint-PrusaMeshMap
-source: https://github.com/ff8jake/OctoPrint-PrusaMeshMap
-archive: https://github.com/ff8jake/OctoPrint-PrusaMeshMap/archive/master.zip
+homepage: https://github.com/GilesBathgate/OctoPrint-PrusaMeshMap
+source: https://github.com/GilesBathgate/OctoPrint-PrusaMeshMap
+archive: https://github.com/GilesBathgate/OctoPrint-PrusaMeshMap/archive/master.zip
 
 # TODO
 # Set this to true if your plugin uses the dependency_links setup parameter to include
