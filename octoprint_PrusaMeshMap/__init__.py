@@ -39,7 +39,12 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 			less=["less/PrusaMeshMap.less"],
                         img_heightmap=["img/heightmap.png"]
 		)
-                
+        ##~~ TemplatePlugin mixin
+        def get_template_configs(self):
+            return [
+                    dict(type="tab", template="PrusaMeshMap_tab.jinja2", name="Bed")
+            ]
+
 	##~~ Softwareupdate hook
 	def get_update_information(self):
 		return dict(
