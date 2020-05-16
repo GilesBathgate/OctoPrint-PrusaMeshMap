@@ -250,9 +250,6 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                 del self.mesh_level_responses[:]
 
 
-# If you want your plugin to be registered within OctoPrint under a different name than what you defined in setup.py
-# ("OctoPrint-PluginSkeleton"), you may define that here. Same goes for the other metadata derived from setup.py that
-# can be overwritten via __plugin_xyz__ control properties. See the documentation for that.
 __plugin_name__ = "Prusa Mesh Leveling"
 
 def __plugin_load__():
