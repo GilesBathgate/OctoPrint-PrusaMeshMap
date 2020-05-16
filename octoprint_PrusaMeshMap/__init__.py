@@ -167,8 +167,8 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                     row_i = 0
                     for val in col:
                         mesh_z[col_i][row_i] = (val - center_z)
-                        row_i = row_i + 1
-                    col_i = col_i + 1
+                        row_i += 1
+                    col_i += 1
 
                 # Calculate the X and Y values of the mesh bed points, in print area coordinates
                 mesh_x = self.zeros_1d(MESH_NUM_POINTS_X)
