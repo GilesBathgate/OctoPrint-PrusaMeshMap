@@ -2,7 +2,6 @@
 from __future__ import absolute_import
 
 import datetime
-import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -67,6 +66,26 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                     return line
 
         ##~~ Mesh Bed Level Heightmap Generation
+        def zeros_1d(self,n):
+            return [0 for i in range(n)]
+
+        def zeros_2d(self,n,m):
+            return [[0] * m for i in range(n)]
+
+        def max(self,mesh):
+            max_z = -float("inf")
+            for col in mesh:
+                for row in col:
+                    max_z = row if row > max_z else max_z
+            return max_z
+
+        def min(self,mesh):
+            min_z = float("inf")
+            for col in mesh:
+                for row in col:
+                    min_z = row if row < min_z else min_z
+            return min_z
+
         mesh_level_responses = []
 
         def mesh_level_generate(self):
@@ -143,7 +162,7 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                 # Generate a 2D array of the Z values in column-major order
                 center_z = mesh_values[3][3]
                 col_i = 0
-                mesh_z = np.zeros(shape=(7,7))
+                mesh_z = self.zeros_2d(7,7)
                 for col in mesh_values:
                     row_i = 0
                     for val in col:
@@ -152,15 +171,15 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                     col_i = col_i + 1
 
                 # Calculate the X and Y values of the mesh bed points, in print area coordinates
-                mesh_x = np.zeros(MESH_NUM_POINTS_X)
+                mesh_x = self.zeros_1d(MESH_NUM_POINTS_X)
                 for i in range(0, MESH_NUM_POINTS_X):
                     mesh_x[i] = MESH_FRONT_LEFT_X + mesh_delta_x*i
 
-                mesh_y = np.zeros(MESH_NUM_POINTS_Y)
+                mesh_y = self.zeros_1d(MESH_NUM_POINTS_Y)
                 for i in range(0, MESH_NUM_POINTS_Y):
                     mesh_y[i] = MESH_FRONT_LEFT_Y + mesh_delta_y*i
 
-                bed_variance = round(mesh_z.max() - mesh_z.min(), 3)
+                bed_variance = round(self.max(mesh_z) - self.min(mesh_z), 3)
 
                 ############
                 # Draw the heightmap
