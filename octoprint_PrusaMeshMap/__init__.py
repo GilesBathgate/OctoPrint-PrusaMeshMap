@@ -141,12 +141,13 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
                     mesh_values.append([float(i) for i in response.split(",")])
 
                 # Generate a 2D array of the Z values in column-major order
+                center_z = mesh_values[3][3]
                 col_i = 0
                 mesh_z = np.zeros(shape=(7,7))
                 for col in mesh_values:
                     row_i = 0
                     for val in col:
-                        mesh_z[col_i][row_i] = val
+                        mesh_z[col_i][row_i] = (val - center_z)
                         row_i = row_i + 1
                     col_i = col_i + 1
 
@@ -211,6 +212,15 @@ class PrusameshmapPlugin(octoprint.plugin.SettingsPlugin,
 
                 #plt.colorbar(label="Bed Variance: " + str(round(mesh_z.max() - mesh_z.min(), 3)) + "mm")
                 plt.colorbar(contour, label="Measured Level (mm)")
+
+                box = dict(facecolor='#eeefff', alpha=0.5)
+
+                plt.text(0.08, 0.90, "{:.2f}".format(mesh_z[0][0]), fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=box)
+                plt.text(0.90, 0.90, "{:.2f}".format(mesh_z[0][6]), fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=box)
+                plt.text(0.08, 0.15, "{:.2f}".format(mesh_z[6][0]), fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=box)
+                plt.text(0.90, 0.15, "{:.2f}".format(mesh_z[6][6]), fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=box)
+
+                plt.text(0.5 , 0.49, "{:.2f}".format(mesh_z[3][3]), fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes, bbox=box)
                 
                 plt.text(0.5, 0.05, "Total Bed Variance: " + str(bed_variance) + " (mm)", fontsize=10, horizontalalignment='center', verticalalignment='center', transform=ax.transAxes)
 
